@@ -1,5 +1,7 @@
 const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext('2d');
+const colors = document.getElementsByClassName("jsColor");
+const black_plt = document.getElementsByClassName("black_plt");
 
 canvas.width = 700;
 canvas.height = 700;
@@ -18,20 +20,16 @@ function onMouseMove(event){
     const x = event.offsetX;
     const y = event.offsetY;
     if (!painting) {
-        console.log("creating path", x, y);
         ctx.beginPath();
         ctx.moveTo(x, y);
-        
     } else {
-        console.log("creating line", x, y);
         ctx.lineTo(x, y);
         ctx.stroke();
-        
     }
-
 }
-function onMouseDown(event){
-    painting = true;
+function handleColorClick(event){
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color
 }
 
 if (canvas){
@@ -40,3 +38,5 @@ if (canvas){
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
 }
+
+Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick))
