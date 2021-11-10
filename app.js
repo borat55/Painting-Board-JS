@@ -3,12 +3,14 @@ const ctx = canvas.getContext("2d");
 const range = document.querySelector("#jsRange");
 const colors = document.querySelectorAll(".jsColor");
 const mode = document.querySelector("#jsMode");
+const save = document.querySelector("#jsSave");
 
 canvas.width = 700;
 canvas.height = 700;
 
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
+ctx.fillStyle = "black";
 ctx.lineWidth = 2.5;
 ctx.strokeStyle = "black";
 
@@ -50,11 +52,11 @@ function handleColors(event) {
 
 function handleModeBtn() {
     if(filling === true) {
-        filling = false
-        mode.innerTest = `Fill`
+        filling = false;
+        mode.innerText = `Fill`;
     } else {
-        filling = true
-        mode.innerText = `Draw`
+        filling = true;
+        mode.innerText = `Draw`;
     }
 }
 
@@ -63,6 +65,13 @@ function handleFillingCanvas() {
         ctx.fillRect(0, 0, canvas.width, canvas.height);}
 }
 
+function handleSaveBtn() {
+    const img = canvas.toDataURL("img/jpeg");
+    const link = document.createElement("a");
+    link.href = img;
+    link.download = "[EXPORT]";
+    link.click();
+}
 if(canvas) {
 canvas.addEventListener("mousemove", handleMouseMove);
 canvas.addEventListener("mousedown", startPainting);
@@ -81,4 +90,8 @@ if(colors) {
 
 if(mode) {
     mode.addEventListener("click", handleModeBtn)
+}
+
+if(save) {
+    save.addEventListener("click", handleSaveBtn)
 }
