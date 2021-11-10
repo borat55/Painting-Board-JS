@@ -72,12 +72,18 @@ function handleSaveBtn() {
     link.download = "[EXPORT]";
     link.click();
 }
+
+function handleRightClick(event) {
+    event.preventDefault();
+}
+
 if(canvas) {
 canvas.addEventListener("mousemove", handleMouseMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", stopPainting);
 canvas.addEventListener("mouseleave", stopPainting);
 canvas.addEventListener("click", handleFillingCanvas)
+canvas.addEventListener("contextmenu", handleRightClick)
 }
 
 if(range) {
